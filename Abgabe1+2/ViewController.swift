@@ -47,12 +47,16 @@ class ViewController: NSViewController {
         
         sizeLabel.string = "Bitte lade ein Bild"
         sizeLabel.backgroundColor = NSColor.clear
+        sizeLabel.isEditable = false
+
         
         bmpTypeLabel.string = ""
         bmpTypeLabel.backgroundColor = NSColor.clear
+        bmpTypeLabel.isEditable = false
         
-        rgbaValueLabel.string = ""
+        rgbaValueLabel.string = "\n"
         rgbaValueLabel.backgroundColor = NSColor.clear
+        rgbaValueLabel.isEditable = false
         
         contentView.addSubview(imgView)
         contentView.addSubview(sizeLabel)
@@ -76,25 +80,25 @@ class ViewController: NSViewController {
             $0.height.equalTo(imgView.snp.width).multipliedBy(0.66)
         }
         
-        sizeLabel.snp.makeConstraints {
+        sizeLabel.snp.remakeConstraints {
             $0.leading.equalTo(contentView).offset(40)
             $0.trailing.equalTo(contentView).offset(-40)
             $0.top.equalTo(imgView.snp.bottom).offset(10)
             $0.height.equalTo(20)
         }
         
-        bmpTypeLabel.snp.makeConstraints {
+        bmpTypeLabel.snp.remakeConstraints {
             $0.leading.equalTo(contentView).offset(40)
             $0.trailing.equalTo(contentView).offset(-40)
             $0.top.equalTo(sizeLabel.snp.bottom).offset(10)
             $0.height.equalTo(20)
         }
         
-        rgbaValueLabel.snp.makeConstraints {
+        rgbaValueLabel.snp.remakeConstraints {
             $0.leading.equalTo(contentView).offset(40)
             $0.trailing.equalTo(contentView).offset(-40)
             $0.top.equalTo(bmpTypeLabel.snp.bottom).offset(10)
-            $0.height.equalTo(20)
+            $0.height.equalTo(40)
         }
         
         pushButton.snp.remakeConstraints {
@@ -126,20 +130,20 @@ extension ViewController {
         
         //getting the pixel information
         pixelRepresentation = image.pixelData()
-        rgbaValueLabel.string = "RGBA Werte für ausgewählte Pixel: \(getPixelAt(x: 1, y: 1)?.description ?? "") (1|1), \(getPixelAt(x: 100, y: 500)?.description ?? "") (100|500), \(getPixelAt(x: 1000, y: 400)?.description ?? "") (1000|400), \(getPixelAt(x: 1400, y: 1000)?.description ?? "") (1400|1000)"
+        rgbaValueLabel.string = "RGBA Werte für ausgewählte Pixel: 1|1 -> \(getPixelAt(x: 1, y: 1)), 100|500 -> \(getPixelAt(x: 100, y: 500)), 1000|400 -> \(getPixelAt(x: 1000, y: 400)), 1400|1000 -> \(getPixelAt(x: 1400, y: 1000))"
         
         //setting (and scaling) the image to its view
         imgView.image = image
         }
     
     
-    func getPixelAt(x: Int, y: Int) -> Pixel? {
+    func getPixelAt(x: Int, y: Int) -> String {
         for pixel in pixelRepresentation {
             if pixel.row == y && pixel.col == x {
-                return pixel
+                return pixel.description
             }
         }
-        return nil
+        return "ungültig"
     }
     
     func askUserForImage() -> NSImage? {
@@ -231,7 +235,9 @@ struct Pixel {
     }
     
     var description: String {
-        return "RGBA(\(r), \(g), \(b), \(a))"
+        let formatter = NumberFormatter()
+        formatter.maximumFractionDigits = 0
+        return "RGBA(\(formatter.string(from: NSNumber(value: r))!), \(formatter.string(from: NSNumber(value: g))!), \(formatter.string(from: NSNumber(value: b))!), \(formatter.string(from: NSNumber(value: a))!))"
     }
     
 }

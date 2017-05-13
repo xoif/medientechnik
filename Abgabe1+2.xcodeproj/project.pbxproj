@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		342BDE9BFD851742A54D1906 /* Pods_Abgabe1_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 208D60886C437DFFADAD72A1 /* Pods_Abgabe1_2.framework */; };
-		5A61A35E1EC71C64004139C6 /* Strand.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 5A61A35D1EC71C64004139C6 /* Strand.jpg */; };
 		5A9F525C1EC7031F00ECB6D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9F525B1EC7031F00ECB6D6 /* ViewController.swift */; };
 		5A9F525E1EC7031F00ECB6D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A9F525D1EC7031F00ECB6D6 /* Assets.xcassets */; };
 		5A9F52691EC7040000ECB6D6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9F52681EC7040000ECB6D6 /* main.swift */; };
@@ -16,7 +15,6 @@
 
 /* Begin PBXFileReference section */
 		208D60886C437DFFADAD72A1 /* Pods_Abgabe1_2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abgabe1_2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A61A35D1EC71C64004139C6 /* Strand.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = Strand.jpg; path = ../../Strand.jpg; sourceTree = "<group>"; };
 		5A9F52561EC7031F00ECB6D6 /* Abgabe1+2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Abgabe1+2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A9F525B1EC7031F00ECB6D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		5A9F525D1EC7031F00ECB6D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -60,7 +58,6 @@
 			children = (
 				5A9F525B1EC7031F00ECB6D6 /* ViewController.swift */,
 				5A9F525D1EC7031F00ECB6D6 /* Assets.xcassets */,
-				5A61A35D1EC71C64004139C6 /* Strand.jpg */,
 				5A9F52681EC7040000ECB6D6 /* main.swift */,
 			);
 			path = "Abgabe1+2";
@@ -147,7 +144,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A9F525E1EC7031F00ECB6D6 /* Assets.xcassets in Resources */,
-				5A61A35E1EC71C64004139C6 /* Strand.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
