@@ -1,0 +1,6 @@
+framework module Pods_Abgabe1_2 {
+  umbrella header "Pods-Abgabe1+2-umbrella.h"
+
+  export *
+  module * { export * }
+}

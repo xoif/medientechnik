@@ -4,15 +4,29 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Abgabe1+2.xcscheme</key>
+		<key>Pods-Abgabe1+2.xcscheme</key>
 		<dict>
+			<key>isShown</key>
+			<false />
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>1</integer>
+		</dict>
+		<key>SnapKit.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false />
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>5A9F52551EC7031F00ECB6D6</key>
+		<key>2EEF4907184B6D027DFB8847F7A74196</key>
+		<dict>
+			<key>primary</key>
+			<true />
+		</dict>
+		<key>DC96CA75046805119E41E7FCE9D19214</key>
 		<dict>
 			<key>primary</key>
 			<true />
