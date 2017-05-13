@@ -117,7 +117,8 @@ class ViewController: NSViewController {
 extension ViewController {
 
     func loadImage() {
-        guard let image = NSImage(named:"Strand.jpg") else {return}
+        
+        guard let image = askUserForImage() else {return}
         sizeLabel.string = "Das Bild ist \(image.size.width) Pixel breit und \(image.size.height) Pixel hoch"
         
         //getting the image type
@@ -139,6 +140,31 @@ extension ViewController {
             }
         }
         return nil
+    }
+    
+    func askUserForImage() -> NSImage? {
+    
+        if let url = NSOpenPanel().selectUrl {
+            return NSImage(contentsOf: url)
+            print("file selected = \(url.path)")
+        } else {
+            print("file selection was canceled")
+            return nil
+        }
+    }
+}
+
+//MARK: Helper
+
+extension NSOpenPanel {
+    var selectUrl: URL? {
+        title = "Select File"
+        allowsMultipleSelection = false
+        canChooseDirectories = false
+        canChooseFiles = true
+        canCreateDirectories = false
+        allowedFileTypes = ["jpg","png","pdf","pct", "bmp", "tiff"]  // to allow only images, just comment out this line to allow any file type to be selected
+        return runModal() == NSFileHandlingPanelOKButton ? urls.first : nil
     }
 }
 
