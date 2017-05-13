@@ -16,7 +16,8 @@ class ViewController: NSViewController {
     let contentView = NSView()
     let imgView = NSImageView()
     let sizeLabel = NSText()
-    let rgbaValues = NSText()
+    let bmpTypeLabel = NSText()
+    let rgbaValueLabel = NSText()
     var pixelRepresentation = [Pixel]()
     
     override func loadView() {
@@ -47,12 +48,16 @@ class ViewController: NSViewController {
         sizeLabel.string = "Bitte lade ein Bild"
         sizeLabel.backgroundColor = NSColor.clear
         
-        rgbaValues.string = ""
-        rgbaValues.backgroundColor = NSColor.clear
+        bmpTypeLabel.string = ""
+        bmpTypeLabel.backgroundColor = NSColor.clear
+        
+        rgbaValueLabel.string = ""
+        rgbaValueLabel.backgroundColor = NSColor.clear
         
         contentView.addSubview(imgView)
         contentView.addSubview(sizeLabel)
-        contentView.addSubview(rgbaValues)
+        contentView.addSubview(bmpTypeLabel)
+        contentView.addSubview(rgbaValueLabel)
 
         setupViews()
     }
@@ -78,10 +83,17 @@ class ViewController: NSViewController {
             $0.height.equalTo(20)
         }
         
-        rgbaValues.snp.makeConstraints {
+        bmpTypeLabel.snp.makeConstraints {
             $0.leading.equalTo(contentView).offset(40)
             $0.trailing.equalTo(contentView).offset(-40)
             $0.top.equalTo(sizeLabel.snp.bottom).offset(10)
+            $0.height.equalTo(20)
+        }
+        
+        rgbaValueLabel.snp.makeConstraints {
+            $0.leading.equalTo(contentView).offset(40)
+            $0.trailing.equalTo(contentView).offset(-40)
+            $0.top.equalTo(bmpTypeLabel.snp.bottom).offset(10)
             $0.height.equalTo(20)
         }
         
@@ -108,9 +120,14 @@ extension ViewController {
         guard let image = NSImage(named:"Strand.jpg") else {return}
         sizeLabel.string = "Das Bild ist \(image.size.width) Pixel breit und \(image.size.height) Pixel hoch"
         
-        pixelRepresentation = image.pixelData()
-        rgbaValues.string = "RGBA Werte für ausgewählte Pixel: \(getPixelAt(x: 1, y: 1)?.description ?? "") (1|1), \(getPixelAt(x: 100, y: 500)?.description ?? "") (100|500), \(getPixelAt(x: 1000, y: 400)?.description ?? "") (1000|400), \(getPixelAt(x: 1400, y: 1000)?.description ?? "") (1400|1000)"
+        //getting the image type
+        bmpTypeLabel.string = "Image Type = \(image.imageType())"
         
+        //getting the pixel information
+        pixelRepresentation = image.pixelData()
+        rgbaValueLabel.string = "RGBA Werte für ausgewählte Pixel: \(getPixelAt(x: 1, y: 1)?.description ?? "") (1|1), \(getPixelAt(x: 100, y: 500)?.description ?? "") (100|500), \(getPixelAt(x: 1000, y: 400)?.description ?? "") (1000|400), \(getPixelAt(x: 1400, y: 1000)?.description ?? "") (1400|1000)"
+        
+        //setting (and scaling) the image to its view
         imgView.image = image
         }
     
@@ -151,6 +168,18 @@ extension NSImage {
         return pixels
     }
     
+    func imageType() -> String {
+        let bmp = self.representations[0] as! NSBitmapImageRep
+    return bmp.bitmapFormat.description()
+    }
+    
+}
+
+extension NSBitmapFormat {
+
+    func description() -> String {
+        return ["alphaFirst","alphaNonPremultiplied","floatingPointSamples","16BitBigEndian","16BitLittleEndian","32BitBigEndian","32BitLittleEndian"][Int(self.rawValue)]
+    }
 }
 
 struct Pixel {
