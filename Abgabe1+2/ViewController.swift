@@ -65,13 +65,6 @@ class ViewController: NSViewController {
           setupViews()
         super.viewDidLayout()
     }
-
-
-    override var representedObject: Any? {
-        didSet {
-            // Update the view, if already loaded.
-        }
-    }
 }
 
 
