@@ -8,12 +8,14 @@
 
 import Cocoa
 import SnapKit
+import Photos
 
 class ViewController: NSViewController {
 
     let pushButton =  NSButton()
     let contentView = NSView()
     let imgView = NSImageView()
+    let sizeLabel = NSText()
     
     override func loadView() {
         view = NSView()
@@ -27,6 +29,7 @@ class ViewController: NSViewController {
         
         pushButton.setButtonType(.pushOnPushOff)
         pushButton.title = "Bild laden"
+        pushButton.action = #selector(ViewController.loadImage)
         
         view.addSubview(contentView)
         contentView.addSubview(pushButton)
@@ -34,7 +37,11 @@ class ViewController: NSViewController {
         imgView.wantsLayer = true
         imgView.layer?.backgroundColor = NSColor.green.cgColor
         
+        sizeLabel.string = "Bitte lade ein Bild"
+        sizeLabel.backgroundColor = NSColor.clear
+        
         contentView.addSubview(imgView)
+        contentView.addSubview(sizeLabel)
 
         setupViews()
     }
@@ -45,18 +52,26 @@ class ViewController: NSViewController {
         contentView.snp.remakeConstraints {
             $0.edges.equalTo(view)
         }
-        pushButton.snp.remakeConstraints {
-            $0.centerX.equalTo(contentView)
-            $0.bottom.equalTo(contentView).inset(20)
-            $0.height.equalTo(60)
-            $0.width.equalTo(150)
-        }
         
         imgView.snp.remakeConstraints {
             $0.centerX.equalTo(contentView)
             $0.top.equalTo(contentView).offset(20)
             $0.width.equalTo(contentView).inset(40)
             $0.height.equalTo(imgView.snp.width).multipliedBy(0.66)
+        }
+        
+        sizeLabel.snp.makeConstraints {
+            $0.leading.equalTo(contentView).offset(40)
+            $0.trailing.equalTo(contentView).offset(-40)
+            $0.top.equalTo(imgView.snp.bottom).offset(10)
+            $0.bottom.equalTo(pushButton.snp.top).offset(-10)
+        }
+        
+        pushButton.snp.remakeConstraints {
+            $0.centerX.equalTo(contentView)
+            $0.bottom.equalTo(contentView).inset(20)
+            $0.height.equalTo(60)
+            $0.width.equalTo(150)
         }
         
     }
@@ -72,7 +87,19 @@ class ViewController: NSViewController {
 extension ViewController {
 
     func loadImage() {
-        imgView.image = NSImage(named:"test")
+        guard let image = NSImage(named:"Strand.jpg") else {return}
+        sizeLabel.string = "Das Bild ist \(image.size.width) Pixel breit und \(image.size.height) Pixel hoch"
+        
+        let imageManager = PHImageManager.defaultManager()
+        imageManager.requestImageDataForAsset(self.asset!, options: nil, resultHandler:{
+            (data, responseString, imageOriet, info) -> Void in
+            let imageData: NSData = data!
+            if let imageSource = CGImageSourceCreateWithData(imageData, nil) {
+                let imageProperties = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil)! as NSDictionary
+                
+                
+            }
+        })
     }
 }
 
