@@ -16,7 +16,7 @@ final class ImagePickerApplicationController: NSObject, NSApplicationDelegate {
 
         window1.contentViewController = ViewController()
         window1.styleMask = NSWindowStyleMask([.resizable, .titled, .closable])
-        window1.contentMinSize = NSSize(width: 300, height: 300)
+        window1.contentMinSize = NSSize(width: 400, height: 400)
         window1.contentMaxSize = NSSize(width: 1200, height: 1200)
         window1.setFrame(CGRect(x: 0, y: 0, width: 900, height: 900), display: true)
         window1.aspectRatio = window1.frame.size

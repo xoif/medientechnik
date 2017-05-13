@@ -16,6 +16,8 @@ class ViewController: NSViewController {
     let contentView = NSView()
     let imgView = NSImageView()
     let sizeLabel = NSText()
+    let rgbaValues = NSText()
+    var pixelRepresentation = [Pixel]()
     
     override func loadView() {
         view = NSView()
@@ -45,8 +47,12 @@ class ViewController: NSViewController {
         sizeLabel.string = "Bitte lade ein Bild"
         sizeLabel.backgroundColor = NSColor.clear
         
+        rgbaValues.string = ""
+        rgbaValues.backgroundColor = NSColor.clear
+        
         contentView.addSubview(imgView)
         contentView.addSubview(sizeLabel)
+        contentView.addSubview(rgbaValues)
 
         setupViews()
     }
@@ -69,7 +75,14 @@ class ViewController: NSViewController {
             $0.leading.equalTo(contentView).offset(40)
             $0.trailing.equalTo(contentView).offset(-40)
             $0.top.equalTo(imgView.snp.bottom).offset(10)
-            $0.bottom.equalTo(pushButton.snp.top).offset(-10)
+            $0.height.equalTo(20)
+        }
+        
+        rgbaValues.snp.makeConstraints {
+            $0.leading.equalTo(contentView).offset(40)
+            $0.trailing.equalTo(contentView).offset(-40)
+            $0.top.equalTo(sizeLabel.snp.bottom).offset(10)
+            $0.height.equalTo(20)
         }
         
         pushButton.snp.remakeConstraints {
@@ -95,13 +108,21 @@ extension ViewController {
         guard let image = NSImage(named:"Strand.jpg") else {return}
         sizeLabel.string = "Das Bild ist \(image.size.width) Pixel breit und \(image.size.height) Pixel hoch"
         
-        let pixelRepresentation = image.pixelData()
-        imgView.image = image
-        imgView.setContentCompressionResistancePriority(12, for: .horizontal)
-        imgView.setContentCompressionResistancePriority(12, for: .vertical)
+        pixelRepresentation = image.pixelData()
+        rgbaValues.string = "RGBA Werte für ausgewählte Pixel: \(getPixelAt(x: 1, y: 1)?.description ?? "") (1|1), \(getPixelAt(x: 100, y: 500)?.description ?? "") (100|500), \(getPixelAt(x: 1000, y: 400)?.description ?? "") (1000|400), \(getPixelAt(x: 1400, y: 1000)?.description ?? "") (1400|1000)"
         
+        imgView.image = image
         }
     
+    
+    func getPixelAt(x: Int, y: Int) -> Pixel? {
+        for pixel in pixelRepresentation {
+            if pixel.row == y && pixel.col == x {
+                return pixel
+            }
+        }
+        return nil
+    }
 }
 
 
