@@ -19,7 +19,7 @@ extension NSOpenPanel {
         canChooseDirectories = false
         canChooseFiles = true
         canCreateDirectories = false
-        allowedFileTypes = ["jpg","png","pdf","pct", "bmp", "tiff"]  // to allow only images, just comment out this line to allow any file type to be selected
+        allowedFileTypes = ["jpg","png",  "bmp", "tiff"]
         return runModal() == NSFileHandlingPanelOKButton ? urls.first : nil
     }
 }
@@ -63,6 +63,20 @@ extension NSImage {
             abort()
         }
         return image
+    }
+    var pngData: Data? {
+        guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation) else { return nil }
+        return bitmapImage.representation(using: .PNG, properties: [:])
+    }
+    
+    func pngWrite(to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
+        do {
+            try pngData?.write(to: url, options: options)
+            return true
+        } catch {
+            print(error.localizedDescription)
+            return false
+        }
     }
     
     

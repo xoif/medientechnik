@@ -19,11 +19,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Abgabe1+2/Utilities.swift"
-            timestampString = "516467211.059653"
+            timestampString = "516471108.666622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "125"
-            endingLineNumber = "125"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
             landmarkName = "limit(maxR:maxG:maxB:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -35,11 +35,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Abgabe1+2/Utilities.swift"
-            timestampString = "516467215.504688"
+            timestampString = "516471108.666622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "130"
-            endingLineNumber = "130"
+            startingLineNumber = "144"
+            endingLineNumber = "144"
             landmarkName = "limit(maxR:maxG:maxB:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -51,11 +51,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Abgabe1+2/Utilities.swift"
-            timestampString = "516467217.492899"
+            timestampString = "516471108.666622"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "135"
-            endingLineNumber = "135"
+            startingLineNumber = "149"
+            endingLineNumber = "149"
             landmarkName = "limit(maxR:maxG:maxB:)"
             landmarkType = "7">
          </BreakpointContent>

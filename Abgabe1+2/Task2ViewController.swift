@@ -13,21 +13,26 @@ import AppKit
 class Task2ViewController: NSViewController {
 
     let task1Button =  NSButton()
+
+    let redButton =  NSButton()
+    let greenButton =  NSButton()
+    let blueButton =  NSButton()
+    let vintageButton =  NSButton()
+    let saveButton =  NSButton()
+
     let contentView = NSView()
     let imgView = NSImageView()
     var image: NSImage? {
         didSet {
             if image != nil {
             imgView.image = image
-            processImage()
+            countColoredPixel()
             }
         }
     }
-    
+
     let pixelCountLabel = NSText()
-    let bmpTypeLabel = NSText()
-    let rgbaValueLabel = NSText()
-    
+
     override func loadView() {
         view = NSView()
         view.wantsLayer = true
@@ -42,7 +47,17 @@ class Task2ViewController: NSViewController {
         task1Button.title = "Zu Aufgabe 1 wechseln"
         task1Button.action = #selector(Task2ViewController.showPictureInfo)
 
-        
+        redButton.title = "rot färben"
+        greenButton.title = "grün färben"
+        blueButton.title = "blau färben"
+        vintageButton.title = "Vintage"
+        saveButton.title = "speichern"
+        redButton.action = #selector(Task2ViewController.processImage)
+        greenButton.action = #selector(Task2ViewController.processImage)
+        blueButton.action = #selector(Task2ViewController.processImage)
+        vintageButton.action = #selector(Task2ViewController.processImage)
+        saveButton.action = #selector(Task2ViewController.saveCurrentImage)
+
         view.addSubview(contentView)
         contentView.addSubview(task1Button)
         
@@ -57,17 +72,16 @@ class Task2ViewController: NSViewController {
         pixelCountLabel.backgroundColor = NSColor.clear
         pixelCountLabel.isEditable = false
 
-        bmpTypeLabel.backgroundColor = NSColor.clear
-        bmpTypeLabel.isEditable = false
-        
-        rgbaValueLabel.string = "\n"
-        rgbaValueLabel.backgroundColor = NSColor.clear
-        rgbaValueLabel.isEditable = false
-        
+
+        contentView.addSubview(task1Button)
+        contentView.addSubview(redButton)
+        contentView.addSubview(greenButton)
+        contentView.addSubview(blueButton)
+        contentView.addSubview(vintageButton)
+        contentView.addSubview(saveButton)
+
         contentView.addSubview(imgView)
         contentView.addSubview(pixelCountLabel)
-        contentView.addSubview(bmpTypeLabel)
-        contentView.addSubview(rgbaValueLabel)
 
         setupViews()
     }
@@ -92,21 +106,43 @@ class Task2ViewController: NSViewController {
             $0.top.equalTo(imgView.snp.bottom).offset(10)
             $0.height.equalTo(20)
         }
-        
-        bmpTypeLabel.snp.remakeConstraints {
+
+        redButton.snp.remakeConstraints {
             $0.leading.equalTo(contentView).offset(40)
-            $0.trailing.equalTo(contentView).offset(-40)
+            $0.height.equalTo(30)
             $0.top.equalTo(pixelCountLabel.snp.bottom).offset(10)
-            $0.height.equalTo(20)
+            $0.width.equalTo(75)
+        }
+
+        greenButton.snp.remakeConstraints {
+            $0.leading.equalTo(redButton.snp.trailing).offset(20)
+            $0.height.equalTo(30)
+            $0.top.equalTo(pixelCountLabel.snp.bottom).offset(10)
+            $0.width.equalTo(75)
+        }
+
+        blueButton.snp.remakeConstraints {
+            $0.leading.equalTo(greenButton.snp.trailing).offset(20)
+            $0.height.equalTo(30)
+            $0.top.equalTo(pixelCountLabel.snp.bottom).offset(10)
+            $0.width.equalTo(75)
+        }
+
+        vintageButton.snp.remakeConstraints {
+            $0.leading.equalTo(blueButton.snp.trailing).offset(20)
+            $0.height.equalTo(30)
+            $0.top.equalTo(pixelCountLabel.snp.bottom).offset(10)
+            $0.width.equalTo(75)
         }
         
-        rgbaValueLabel.snp.remakeConstraints {
-            $0.leading.equalTo(contentView).offset(40)
-            $0.trailing.equalTo(contentView).offset(-40)
-            $0.top.equalTo(bmpTypeLabel.snp.bottom).offset(10)
-            $0.height.equalTo(40)
+        saveButton.snp.remakeConstraints {
+            $0.leading.equalTo(vintageButton.snp.trailing).offset(20)
+            $0.height.equalTo(30)
+            $0.top.equalTo(pixelCountLabel.snp.bottom).offset(10)
+            $0.width.equalTo(75)
         }
-        
+
+
         task1Button.snp.remakeConstraints {
             $0.centerX.equalTo(contentView)
             $0.bottom.equalTo(contentView).inset(20)
@@ -126,16 +162,50 @@ class Task2ViewController: NSViewController {
 //MARK: Application Logic
 extension Task2ViewController {
 
-    func processImage() {
-
+    func countColoredPixel() {
         guard let img = image else {return}
         let redCount =  img.countPixelForColorAndMinValue(color: .RED, minValue: 128)
         let greenCount =  img.countPixelForColorAndMinValue(color: .GREEN, minValue: 128)
         let blueCount =   img.countPixelForColorAndMinValue(color: .BLUE, minValue: 128)
         pixelCountLabel.string = "Das Bild enthält \(redCount) Pixel mit roter Farbe, \(greenCount) Pixel mit grüner Farbe und \(blueCount) Pixel mit blauer Farbe"
-        
-        imgView.image = img.limit(maxR: 255, maxG: 255, maxB: 128)
+    }
 
+    func processImage(_ sender : NSButton) {
+        
+      
+        guard let img = image?.copy() as? NSImage else {return}
+        
+        var maxR, maxG, maxB: Int
+        
+        if sender.isEqual(redButton) {
+            maxR = 255
+            maxG = 0
+            maxB = 0
+        } else if sender.isEqual(greenButton) {
+            maxR = 0
+            maxG = 255
+            maxB = 0
+        } else if sender.isEqual(blueButton) {
+            maxR = 0
+            maxG = 0
+            maxB = 255
+        } else if sender.isEqual(vintageButton){
+            maxR = 255
+            maxG = 255
+            maxB = 128
+        } else {
+        return
+        }
+        
+        imgView.image = img.limit(maxR: maxR, maxG: maxG, maxB: 128)
+    }
+    
+    func saveCurrentImage(){
+        guard let img = imgView.image else {return}
+        
+        let desktopURL = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
+        let path = desktopURL.appendingPathComponent("processed_image.png")
+        img.pngWrite(to: path, options: .withoutOverwriting)
     }
     
     func showPictureInfo() {
