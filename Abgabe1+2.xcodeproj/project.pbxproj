@@ -8,18 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		342BDE9BFD851742A54D1906 /* Pods_Abgabe1_2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 208D60886C437DFFADAD72A1 /* Pods_Abgabe1_2.framework */; };
-		5A9F525C1EC7031F00ECB6D6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9F525B1EC7031F00ECB6D6 /* ViewController.swift */; };
+		5A0E85B11EC85C9B0099D9CB /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A0E85B01EC85C9B0099D9CB /* Utilities.swift */; };
+		5A9F525C1EC7031F00ECB6D6 /* Task1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9F525B1EC7031F00ECB6D6 /* Task1ViewController.swift */; };
 		5A9F525E1EC7031F00ECB6D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A9F525D1EC7031F00ECB6D6 /* Assets.xcassets */; };
 		5A9F52691EC7040000ECB6D6 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9F52681EC7040000ECB6D6 /* main.swift */; };
+		C4A550FAAACA7CF31B5079B5 /* Task2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A5511E6DB19562BE922002 /* Task2ViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		208D60886C437DFFADAD72A1 /* Pods_Abgabe1_2.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Abgabe1_2.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5A0E85B01EC85C9B0099D9CB /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		5A9F52561EC7031F00ECB6D6 /* Abgabe1+2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Abgabe1+2.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A9F525B1EC7031F00ECB6D6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		5A9F525B1EC7031F00ECB6D6 /* Task1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task1ViewController.swift; sourceTree = "<group>"; };
 		5A9F525D1EC7031F00ECB6D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A9F52681EC7040000ECB6D6 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C19C361EEDD95B1DC7610697 /* Pods-Abgabe1+2.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abgabe1+2.release.xcconfig"; path = "Pods/Target Support Files/Pods-Abgabe1+2/Pods-Abgabe1+2.release.xcconfig"; sourceTree = "<group>"; };
+		C4A5511E6DB19562BE922002 /* Task2ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task2ViewController.swift; sourceTree = "<group>"; };
 		CA06522787F3D5A6D27B7BF6 /* Pods-Abgabe1+2.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Abgabe1+2.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Abgabe1+2/Pods-Abgabe1+2.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,9 +60,11 @@
 		5A9F52581EC7031F00ECB6D6 /* Abgabe1+2 */ = {
 			isa = PBXGroup;
 			children = (
-				5A9F525B1EC7031F00ECB6D6 /* ViewController.swift */,
+				5A9F525B1EC7031F00ECB6D6 /* Task1ViewController.swift */,
 				5A9F525D1EC7031F00ECB6D6 /* Assets.xcassets */,
 				5A9F52681EC7040000ECB6D6 /* main.swift */,
+				C4A5511E6DB19562BE922002 /* Task2ViewController.swift */,
+				5A0E85B01EC85C9B0099D9CB /* Utilities.swift */,
 			);
 			path = "Abgabe1+2";
 			sourceTree = "<group>";
@@ -203,7 +209,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A9F52691EC7040000ECB6D6 /* main.swift in Sources */,
-				5A9F525C1EC7031F00ECB6D6 /* ViewController.swift in Sources */,
+				5A9F525C1EC7031F00ECB6D6 /* Task1ViewController.swift in Sources */,
+				5A0E85B11EC85C9B0099D9CB /* Utilities.swift in Sources */,
+				C4A550FAAACA7CF31B5079B5 /* Task2ViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

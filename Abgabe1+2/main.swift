@@ -14,7 +14,7 @@ final class ImagePickerApplicationController: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
 
-        window1.contentViewController = ViewController()
+        window1.contentViewController = Task1ViewController()
         window1.styleMask = NSWindowStyleMask([.resizable, .titled, .closable])
         window1.contentMinSize = NSSize(width: 400, height: 400)
         window1.contentMaxSize = NSSize(width: 1200, height: 1200)
