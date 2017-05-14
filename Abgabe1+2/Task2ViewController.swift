@@ -197,7 +197,7 @@ extension Task2ViewController {
         return
         }
         
-        imgView.image = img.limit(maxR: maxR, maxG: maxG, maxB: 128)
+        imgView.image = img.limit(maxR: maxR, maxG: maxG, maxB: maxB)
     }
     
     func saveCurrentImage(){
