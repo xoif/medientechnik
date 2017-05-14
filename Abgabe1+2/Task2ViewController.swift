@@ -134,8 +134,7 @@ extension Task2ViewController {
         let blueCount =   img.countPixelForColorAndMinValue(color: .BLUE, minValue: 128)
         pixelCountLabel.string = "Das Bild enthält \(redCount) Pixel mit roter Farbe, \(greenCount) Pixel mit grüner Farbe und \(blueCount) Pixel mit blauer Farbe"
         
-        
-        imgView.image = img.limit(maxR: 255, maxG: 0, maxB: 0)
+        imgView.image = img.limit(maxR: 255, maxG: 255, maxB: 128)
 
     }
     

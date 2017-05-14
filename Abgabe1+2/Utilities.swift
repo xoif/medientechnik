@@ -28,7 +28,7 @@ extension NSBitmapImageRep {
 
     func imageFromPixels(image: CGImage, size: NSSize, pixels: UnsafePointer<UInt8>)-> NSImage {
         let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
-        let bitmapInfo:CGBitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue)
+        let bitmapInfo:CGBitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
         let bitsPerComponent = image.bitsPerComponent
         let bitsPerPixel = image.bitsPerPixel
         let bytesPerRow = image.bytesPerRow
@@ -41,7 +41,7 @@ extension NSBitmapImageRep {
             height: Int(size.height),
             bitsPerComponent: bitsPerComponent,
             bitsPerPixel: bitsPerPixel,
-            bytesPerRow: bytesPerRow, //->not bits
+            bytesPerRow: bytesPerRow,
             space: rgbColorSpace,
             bitmapInfo: bitmapInfo,
             provider: providerRef!,
