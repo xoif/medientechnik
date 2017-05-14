@@ -24,9 +24,47 @@ extension NSOpenPanel {
     }
 }
 
+extension NSBitmapImageRep {
+
+    func imageFromPixels(image: CGImage, size: NSSize, pixels: UnsafePointer<UInt8>)-> NSImage {
+        let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo:CGBitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.first.rawValue)
+        let bitsPerComponent = image.bitsPerComponent
+        let bitsPerPixel = image.bitsPerPixel
+        let bytesPerRow = image.bytesPerRow
+        let providerRef = CGDataProvider(
+            data: NSData(bytes: pixels, length: Int(size.height) * bytesPerRow) //Do not put `&` as pixels is already an `UnsafePointer`
+        )
+
+        let cgim = CGImage(
+            width: Int(size.width),
+            height: Int(size.height),
+            bitsPerComponent: bitsPerComponent,
+            bitsPerPixel: bitsPerPixel,
+            bytesPerRow: bytesPerRow, //->not bits
+            space: rgbColorSpace,
+            bitmapInfo: bitmapInfo,
+            provider: providerRef!,
+            decode: nil,
+            shouldInterpolate: true,
+            intent: .defaultIntent
+        )
+        return NSImage(cgImage: cgim!, size: size)
+    }
+}
 
 
 extension NSImage {
+    
+    
+    var toCGImage: CGImage {
+        var imageRect = NSRect(x: 0, y: 0, width: size.width, height: size.height)
+        guard let image =  cgImage(forProposedRect: &imageRect, context: nil, hints: nil) else {
+            abort()
+        }
+        return image
+    }
+    
     
     func pixelData() -> [Pixel] {
         let bmp = self.representations[0] as! NSBitmapImageRep
@@ -74,6 +112,37 @@ extension NSImage {
             }
         }
         return pixels.count
+    }
+    
+    func limit(maxR: Int, maxG: Int, maxB: Int) -> NSImage {
+        let bmp = self.representations[0] as! NSBitmapImageRep
+        var data: UnsafeMutablePointer<UInt8> = bmp.bitmapData!
+        var r, g, b: UInt8
+        
+        for _ in 0..<bmp.pixelsHigh {
+            for _ in 0..<bmp.pixelsWide {
+                r = data.pointee
+                if r > UInt8(maxR) {
+                    data.pointee = UInt8(maxR)
+                }
+                data = data.advanced(by: 1)
+                g = data.pointee
+                if g > UInt8(maxG) {
+                    data.pointee = UInt8(maxG)
+                }
+                data = data.advanced(by: 1)
+                b = data.pointee
+                if b > UInt8(maxB) {
+                    data.pointee = UInt8(maxB)
+                }
+                 data = data.advanced(by: 2)
+                /*
+                    alpha values are not needed by this method, so we have to skip their memory adresses and move the pointer by two values
+                    (as it is a typed pointer) in order to get to the next Pixel.
+                */
+            }
+        }
+        return bmp.imageFromPixels(image: self.toCGImage, size: bmp.size, pixels: bmp.bitmapData!)
     }
 
     

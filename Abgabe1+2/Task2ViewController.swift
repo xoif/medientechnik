@@ -128,10 +128,14 @@ extension Task2ViewController {
 
     func processImage() {
 
-        let redCount =  image?.countPixelForColorAndMinValue(color: .RED, minValue: 128)
-        let greenCount =  image?.countPixelForColorAndMinValue(color: .GREEN, minValue: 128)
-        let blueCount =   image?.countPixelForColorAndMinValue(color: .BLUE, minValue: 128)
+        guard let img = image else {return}
+        let redCount =  img.countPixelForColorAndMinValue(color: .RED, minValue: 128)
+        let greenCount =  img.countPixelForColorAndMinValue(color: .GREEN, minValue: 128)
+        let blueCount =   img.countPixelForColorAndMinValue(color: .BLUE, minValue: 128)
         pixelCountLabel.string = "Das Bild enthält \(redCount) Pixel mit roter Farbe, \(greenCount) Pixel mit grüner Farbe und \(blueCount) Pixel mit blauer Farbe"
+        
+        
+        imgView.image = img.limit(maxR: 255, maxG: 0, maxB: 0)
 
     }
     
