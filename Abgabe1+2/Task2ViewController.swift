@@ -24,7 +24,7 @@ class Task2ViewController: NSViewController {
         }
     }
     
-    let sizeLabel = NSText()
+    let pixelCountLabel = NSText()
     let bmpTypeLabel = NSText()
     let rgbaValueLabel = NSText()
     
@@ -39,7 +39,7 @@ class Task2ViewController: NSViewController {
         super.viewDidLoad()
         
         task1Button.setButtonType(.pushOnPushOff)
-        task1Button.title = "Zu Aufgabe 2 wechseln"
+        task1Button.title = "Zu Aufgabe 1 wechseln"
         task1Button.action = #selector(Task2ViewController.showPictureInfo)
 
         
@@ -53,13 +53,10 @@ class Task2ViewController: NSViewController {
         //if compression resistance is set to its default level (which is 500), the window will only scale down upon the image views' image intrinsic size.
         
         imgView.layer?.backgroundColor = NSColor.green.cgColor
-        
-        sizeLabel.string = "Bitte lade ein Bild"
-        sizeLabel.backgroundColor = NSColor.clear
-        sizeLabel.isEditable = false
 
-        
-        bmpTypeLabel.string = ""
+        pixelCountLabel.backgroundColor = NSColor.clear
+        pixelCountLabel.isEditable = false
+
         bmpTypeLabel.backgroundColor = NSColor.clear
         bmpTypeLabel.isEditable = false
         
@@ -68,7 +65,7 @@ class Task2ViewController: NSViewController {
         rgbaValueLabel.isEditable = false
         
         contentView.addSubview(imgView)
-        contentView.addSubview(sizeLabel)
+        contentView.addSubview(pixelCountLabel)
         contentView.addSubview(bmpTypeLabel)
         contentView.addSubview(rgbaValueLabel)
 
@@ -89,7 +86,7 @@ class Task2ViewController: NSViewController {
             $0.height.equalTo(imgView.snp.width).multipliedBy(0.66)
         }
         
-        sizeLabel.snp.remakeConstraints {
+        pixelCountLabel.snp.remakeConstraints {
             $0.leading.equalTo(contentView).offset(40)
             $0.trailing.equalTo(contentView).offset(-40)
             $0.top.equalTo(imgView.snp.bottom).offset(10)
@@ -99,7 +96,7 @@ class Task2ViewController: NSViewController {
         bmpTypeLabel.snp.remakeConstraints {
             $0.leading.equalTo(contentView).offset(40)
             $0.trailing.equalTo(contentView).offset(-40)
-            $0.top.equalTo(sizeLabel.snp.bottom).offset(10)
+            $0.top.equalTo(pixelCountLabel.snp.bottom).offset(10)
             $0.height.equalTo(20)
         }
         

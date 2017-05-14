@@ -37,6 +37,8 @@ class Task1ViewController: NSViewController {
         
         task2Button.setButtonType(.pushOnPushOff)
         task2Button.title = "Zu Aufgabe 2 wechseln"
+        task2Button.isEnabled = false
+        task2Button.isTransparent = true
         task2Button.action = #selector(Task1ViewController.showPictureManipulation)
 
         
@@ -54,16 +56,12 @@ class Task1ViewController: NSViewController {
         sizeLabel.string = "Bitte lade ein Bild"
         sizeLabel.backgroundColor = NSColor.clear
         sizeLabel.isEditable = false
-
-        
-        bmpTypeLabel.string = ""
         bmpTypeLabel.backgroundColor = NSColor.clear
         bmpTypeLabel.isEditable = false
         
         rgbaValueLabel.string = "\n"
         rgbaValueLabel.backgroundColor = NSColor.clear
         rgbaValueLabel.isEditable = false
-        
         
         contentView.addSubview(pushButton)
         contentView.addSubview(task2Button)
@@ -150,6 +148,8 @@ extension Task1ViewController {
         
         //setting (and scaling) the image to its view
         imgView.image = image
+        task2Button.isEnabled = true
+        task2Button.isTransparent = false
         }
     
     
