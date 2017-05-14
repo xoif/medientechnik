@@ -41,7 +41,7 @@ class Task1ViewController: NSViewController {
 
         
         view.addSubview(contentView)
-        contentView.addSubview(pushButton)
+
         
         imgView.wantsLayer = true
         imgView.imageScaling = .scaleProportionallyDown //preserve the aspect ratio when image is loaded into image views' frame
@@ -64,6 +64,9 @@ class Task1ViewController: NSViewController {
         rgbaValueLabel.backgroundColor = NSColor.clear
         rgbaValueLabel.isEditable = false
         
+        
+        contentView.addSubview(pushButton)
+        contentView.addSubview(task2Button)
         contentView.addSubview(imgView)
         contentView.addSubview(sizeLabel)
         contentView.addSubview(bmpTypeLabel)
@@ -114,6 +117,13 @@ class Task1ViewController: NSViewController {
             $0.width.equalTo(150)
         }
         
+        task2Button.snp.remakeConstraints {
+            $0.leading.equalTo(pushButton.snp.trailing).offset(20)
+            $0.bottom.equalTo(contentView).inset(20)
+            $0.height.equalTo(60)
+            $0.width.equalTo(150)
+        }
+        
     }
 
     override func viewDidLayout() {
@@ -155,8 +165,8 @@ extension Task1ViewController {
     func askUserForImage() -> NSImage? {
     
         if let url = NSOpenPanel().selectUrl {
-            return NSImage(contentsOf: url)
             print("file selected = \(url.path)")
+            return NSImage(contentsOf: url)
         } else {
             print("file selection was canceled")
             return nil
@@ -165,6 +175,8 @@ extension Task1ViewController {
     
     func showPictureManipulation() {
         let viewController = Task2ViewController()
+        viewController.image = imgView.image
+        NSApplication.shared().mainWindow?.contentViewController = viewController
     }
 }
 

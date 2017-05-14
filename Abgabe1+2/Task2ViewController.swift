@@ -12,14 +12,21 @@ import AppKit
 
 class Task2ViewController: NSViewController {
 
-    let pushButton =  NSButton()
-    let task2Button =  NSButton()
+    let task1Button =  NSButton()
     let contentView = NSView()
     let imgView = NSImageView()
+    var image: NSImage? {
+        didSet {
+            if image != nil {
+            imgView.image = image
+            processImage()
+            }
+        }
+    }
+    
     let sizeLabel = NSText()
     let bmpTypeLabel = NSText()
     let rgbaValueLabel = NSText()
-    var pixelRepresentation = [Pixel]()
     
     override func loadView() {
         view = NSView()
@@ -31,17 +38,13 @@ class Task2ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        pushButton.setButtonType(.pushOnPushOff)
-        pushButton.title = "Bild laden"
-        pushButton.action = #selector(Task2ViewController.loadImage)
-        
-        task2Button.setButtonType(.pushOnPushOff)
-        task2Button.title = "Zu Aufgabe 2 wechseln"
-        task2Button.action = #selector(Task2ViewController.showPictureManipulation)
+        task1Button.setButtonType(.pushOnPushOff)
+        task1Button.title = "Zu Aufgabe 2 wechseln"
+        task1Button.action = #selector(Task2ViewController.showPictureInfo)
 
         
         view.addSubview(contentView)
-        contentView.addSubview(pushButton)
+        contentView.addSubview(task1Button)
         
         imgView.wantsLayer = true
         imgView.imageScaling = .scaleProportionallyDown //preserve the aspect ratio when image is loaded into image views' frame
@@ -107,7 +110,7 @@ class Task2ViewController: NSViewController {
             $0.height.equalTo(40)
         }
         
-        pushButton.snp.remakeConstraints {
+        task1Button.snp.remakeConstraints {
             $0.centerX.equalTo(contentView)
             $0.bottom.equalTo(contentView).inset(20)
             $0.height.equalTo(60)
@@ -126,45 +129,15 @@ class Task2ViewController: NSViewController {
 //MARK: Application Logic
 extension Task2ViewController {
 
-    func loadImage() {
+    func processImage() {
         
-        guard let image = askUserForImage() else {return}
-        sizeLabel.string = "Das Bild ist \(image.size.width) Pixel breit und \(image.size.height) Pixel hoch"
-        
-        //getting the image type
-        bmpTypeLabel.string = "Image Type = \(image.imageType())"
-        
-        //getting the pixel information
-        pixelRepresentation = image.pixelData()
-        rgbaValueLabel.string = "RGBA Werte für ausgewählte Pixel: 1|1 -> \(getPixelAt(x: 1, y: 1)), 100|500 -> \(getPixelAt(x: 100, y: 500)), 1000|400 -> \(getPixelAt(x: 1000, y: 400)), 1400|1000 -> \(getPixelAt(x: 1400, y: 1000))"
-        
-        //setting (and scaling) the image to its view
-        imgView.image = image
-        }
-    
-    
-    func getPixelAt(x: Int, y: Int) -> String {
-        for pixel in pixelRepresentation {
-            if pixel.row == y && pixel.col == x {
-                return pixel.description
-            }
-        }
-        return "ungültig"
+        image?.countPixelForColorAndMinValue(color: .RED, minValue: 128)
+
     }
     
-    func askUserForImage() -> NSImage? {
-    
-        if let url = NSOpenPanel().selectUrl {
-            return NSImage(contentsOf: url)
-            print("file selected = \(url.path)")
-        } else {
-            print("file selection was canceled")
-            return nil
-        }
-    }
-    
-    func showPictureManipulation() {
-        
+    func showPictureInfo() {
+        let viewController = Task1ViewController()
+        NSApplication.shared().mainWindow?.contentViewController = viewController
     }
 }
 

@@ -50,6 +50,33 @@ extension NSImage {
         return pixels
     }
     
+    func countPixelForColorAndMinValue(color: rgbColor, minValue: UInt8) -> Int {
+        let bmp = self.representations[0] as! NSBitmapImageRep
+        var data: UnsafeMutablePointer<UInt8> = bmp.bitmapData!
+        var r, g, b, a: UInt8
+        var pixels: [Pixel] = []
+        
+        for row in 0..<bmp.pixelsHigh {
+            for col in 0..<bmp.pixelsWide {
+   
+                r = data.pointee
+                data = data.advanced(by: 1)
+                g = data.pointee
+                data = data.advanced(by: 1)
+                b = data.pointee
+                data = data.advanced(by: 1)
+                a = data.pointee
+                data = data.advanced(by: 1)
+                
+                if (color == .RED && r >= minValue) || (color == .GREEN && g >= minValue) || (color == .BLUE && b >= minValue) {
+                    pixels.append(Pixel(r: r, g: g, b: b, a: a, row: row, col: col))
+                }
+            }
+        }
+        return pixels.count
+    }
+
+    
     func imageType() -> String {
         let bmp = self.representations[0] as! NSBitmapImageRep
         return bmp.bitmapFormat.description()
@@ -62,6 +89,10 @@ extension NSBitmapFormat {
     func description() -> String {
         return ["alphaFirst","alphaNonPremultiplied","floatingPointSamples","16BitBigEndian","16BitLittleEndian","32BitBigEndian","32BitLittleEndian"][Int(self.rawValue)]
     }
+}
+
+enum rgbColor {
+    case RED, GREEN, BLUE
 }
 
 struct Pixel {
