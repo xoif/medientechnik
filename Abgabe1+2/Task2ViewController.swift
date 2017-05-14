@@ -205,7 +205,7 @@ extension Task2ViewController {
         
         let desktopURL = FileManager.default.urls(for: .desktopDirectory, in: .userDomainMask).first!
         let path = desktopURL.appendingPathComponent("processed_image.png")
-        img.pngWrite(to: path, options: .withoutOverwriting)
+        img.pngWrite(to: path)
     }
     
     func showPictureInfo() {
